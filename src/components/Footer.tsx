@@ -21,8 +21,7 @@ export default function Footer() {
               className="w-4 h-4 text-primary-500 fill-primary-500"
               strokeWidth={2}
             />
-            {content.footer.by} {content.footer.author} using{" "}
-            {content.footer.technologies}
+            {content.footer.by} {content.footer.author}
           </p>
           <p className="text-foreground/40 text-sm mt-2">
             © {new Date().getFullYear()} {content.footer.copyright}
