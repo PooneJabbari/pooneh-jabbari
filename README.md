@@ -132,34 +132,6 @@ Edit `src/app/globals.css` to change the color scheme:
 }
 ```
 
-### Game Mode Interactions
-
-Modify `src/components/GameMode.tsx`:
-
-```typescript
-// Change drag threshold
-if (deltaX > 150) {
-  // Adjust this value
-  showModal("education");
-}
-
-// Modify keyboard shortcuts
-if (key === "x") onShowExperience(); // Change key
-```
-
-### Mobile Breakpoint
-
-Edit `src/app/page.tsx`:
-
-```typescript
-setIsMobile(window.innerWidth < 1024); // Change breakpoint
-```
-
-## 📖 Documentation
-
-- **[GAME-MODE-GUIDE.md](./GAME-MODE-GUIDE.md)**: Complete guide to Game Mode features
-- **[INTERACTIVE-GUIDE.md](./INTERACTIVE-GUIDE.md)**: Previous iteration documentation
-
 ## 🌐 Browser Support
 
 - Chrome/Edge 90+
