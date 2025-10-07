@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, useDragControls } from "framer-motion";
 import {
@@ -13,6 +13,7 @@ import {
   CodeXml,
   BriefcaseBusiness,
   Download,
+  ScrollText,
 } from "lucide-react";
 import AboutSection from "./AboutSection";
 import ExperienceSection from "./ExperienceSection";
@@ -21,6 +22,7 @@ import EducationSection from "./EducationSection";
 import ContactSection from "./ContactSection";
 import KeyboardHint from "./KeyboardHint";
 import DraggableBubble from "./DraggableBubble";
+import CustomCursor from "./CustomCursor";
 import content from "@/data/content.json";
 
 type SectionId = "about" | "experience" | "skills" | "education" | "contact";
@@ -101,7 +103,10 @@ export default function GameMode() {
   };
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-background">
+    <div className="fixed inset-0 overflow-hidden bg-background cursor-none">
+      {/* Custom Cursor */}
+      <CustomCursor />
+
       {/* Center Video with Name and Contact */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="relative flex flex-col items-center gap-6">
@@ -163,27 +168,31 @@ export default function GameMode() {
               <Linkedin size={16} className="text-primary-400" />
               <span>LinkedIn</span>
             </a>
+            <a
+              href="/resume/PoonehJabbariResume.pdf"
+              download
+              className="glass px-4 py-2 rounded-full text-sm hover:glass-strong transition-all hover:scale-105 flex items-center gap-2"
+            >
+              <Download size={16} className="text-primary-400" />
+              <span>Resume</span>
+            </a>
           </motion.div>
         </div>
       </div>
 
-      {/* Hint: Simple Mode (Top Left) */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+      {/* Switch to Simple Mode button */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="absolute top-8 left-8 glass p-4 rounded-2xl max-w-xs"
+        onClick={() => router.push("/simple")}
+        className="absolute top-8 left-8 flex items-center gap-2 px-3 py-2 text-foreground/55 hover:text-foreground/75 transition-colors pointer-events-auto"
       >
-        <p className="text-sm text-foreground/70 mb-3">
-          {content.gameMode.hints.simpleMode}
-        </p>
-        <button
-          onClick={() => router.push("/simple")}
-          className="w-full px-4 py-2 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg hover:shadow-lg hover:shadow-primary-500/50 transition-all"
-        >
+        <ScrollText size={14} />
+        <span className="text-xs">
           {content.gameMode.buttons.switchToSimple}
-        </button>
-      </motion.div>
+        </span>
+      </motion.button>
 
       {/* Draggable Bubble for Skills (Right - drag left) */}
       <DraggableBubble
@@ -201,43 +210,23 @@ export default function GameMode() {
         hint={content.gameMode.hints.experience}
       />
 
-      {/* Hint: About (Bottom Left) */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
-        className="absolute bottom-24 left-24"
-      >
-        <p className="text-sm text-foreground/70">
-          {content.gameMode.hints.about}{" "}
-          <span className="text-primary-400">
-            {content.gameMode.hints.aboutHighlight}
-          </span>
-        </p>
-      </motion.div>
-      {/* Resume Download Button (Centered, aligned vertically with hint) */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.4 }}
-        className="absolute bottom-24 left-1/2 -translate-x-1/2 pointer-events-auto"
-      >
-        <a
-          href="/resume/PoonehJabbariResume.pdf"
-          download
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-full hover:shadow-lg hover:shadow-primary-500/50 transition-all"
-        >
-          <Download size={16} className="text-white" />
-          <span>{content.gameMode.buttons.resumeDownload}</span>
-        </a>
-      </motion.div>
-      {/* Keyboard Hints: Education & Contact (Bottom Right) */}
+      {/* Keyboard Hints: About, Education & Contact (Bottom Right) */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.6 }}
         className="absolute bottom-24 right-24 flex flex-col gap-3"
       >
+        <div className="flex items-center gap-3">
+          <p className="text-sm text-foreground/70">press</p>
+          <KeyboardHint
+            keyLabel={content.gameMode.hints.aboutKey}
+            onClick={() => showModal("about")}
+          />
+          <p className="text-sm text-foreground/70">
+            {content.gameMode.hints.about}
+          </p>
+        </div>
         <div className="flex items-center gap-3">
           <p className="text-sm text-foreground/70">press</p>
           <KeyboardHint
@@ -280,9 +269,6 @@ export default function GameMode() {
         onShowEducation={() => showModal("education")}
         onShowContact={() => showModal("contact")}
       />
-
-      {/* Triple Click Handler */}
-      <TripleClickHandler onTripleClick={() => showModal("about")} />
     </div>
   );
 }
@@ -383,34 +369,6 @@ function KeyboardHandler({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onShowAbout, onShowEducation, onShowContact]);
-
-  return null;
-}
-
-function TripleClickHandler({ onTripleClick }: { onTripleClick: () => void }) {
-  const clickTimesRef = useRef<number[]>([]);
-
-  useEffect(() => {
-    const tripleClickIntervalMs = 500;
-
-    const handleClick = () => {
-      const now = Date.now();
-      const times = clickTimesRef.current;
-
-      times.push(now);
-      if (times.length > 3) {
-        times.splice(0, times.length - 3);
-      }
-
-      if (times.length === 3 && times[2] - times[0] <= tripleClickIntervalMs) {
-        clickTimesRef.current = [];
-        onTripleClick();
-      }
-    };
-
-    window.addEventListener("click", handleClick);
-    return () => window.removeEventListener("click", handleClick);
-  }, [onTripleClick]);
 
   return null;
 }

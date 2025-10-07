@@ -41,17 +41,15 @@ export default function SimpleMode() {
       {/* Switch to Game Mode button (desktop only) */}
       {isDesktop && (
         <motion.button
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
           onClick={() => router.push("/")}
-          className="fixed top-6 right-6 z-50 glass-strong px-6 py-3 rounded-full hover:shadow-lg hover:shadow-primary-500/50 transition-all pointer-events-auto"
+          className="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 text-foreground/55 hover:text-foreground/75 transition-colors pointer-events-auto"
         >
-          <span className="inline-flex items-center gap-2">
-            <Gamepad2 size={16} className="text-primary-400" />
-            <span className="text-sm font-semibold bg-gradient-to-r from-primary-400 to-primary-500 bg-clip-text text-transparent">
-              {content.gameMode.buttons.switchToGame}
-            </span>
+          <Gamepad2 size={14} />
+          <span className="text-xs">
+            {content.gameMode.buttons.switchToGame}
           </span>
         </motion.button>
       )}

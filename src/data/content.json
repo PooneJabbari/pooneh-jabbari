@@ -134,14 +134,14 @@
       "experience": "drag the bubble right to see my experience",
       "education": "to see my education",
       "educationKey": "E",
-      "about": "triple-click anywhere for",
-      "aboutHighlight": "about me",
+      "about": "to see about me",
+      "aboutKey": "A",
       "contact": "for contact",
       "contactKey": "C"
     },
     "buttons": {
-      "switchToSimple": "Switch to Simple Mode",
-      "switchToGame": "Game Mode",
+      "switchToSimple": "Switch to Easy Mode",
+      "switchToGame": "Switch to Game Mode",
       "resumeDownload": "Download My Resume"
     }
   },
