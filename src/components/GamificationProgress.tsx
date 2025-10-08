@@ -31,7 +31,7 @@ export default function GamificationProgress() {
       className="fixed bottom-24 left-24 z-40 pointer-events-auto"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.6 }}
+      transition={{ delay: 0.8, duration: 0.4 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

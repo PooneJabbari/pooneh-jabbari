@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import HeroSection from "./HeroSection";
 import AboutSection from "./AboutSection";
 import ExperienceSection from "./ExperienceSection";
@@ -10,11 +11,19 @@ import SkillsSection from "./SkillsSection";
 import EducationSection from "./EducationSection";
 import ContactSection from "./ContactSection";
 import Footer from "./Footer";
-import CustomCursor from "./CustomCursor";
-import { InteractiveBackground } from "./Scene3D";
 import content from "@/data/content.json";
 import { Gamepad2 } from "lucide-react";
 import { useGamification } from "@/contexts/GamificationContext";
+
+const CustomCursor = dynamic(() => import("./CustomCursor"), {
+  ssr: false,
+});
+
+const InteractiveBackground = dynamic(
+  () =>
+    import("./Scene3D").then((mod) => ({ default: mod.InteractiveBackground })),
+  { ssr: false }
+);
 
 export default function SimpleMode() {
   const router = useRouter();
@@ -68,7 +77,13 @@ export default function SimpleMode() {
   }, [completeAction]);
 
   return (
-    <div className="relative snap-y snap-proximity h-screen overflow-y-scroll cursor-none simple-mode-container">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      className="relative snap-y snap-proximity h-screen overflow-y-scroll cursor-none simple-mode-container"
+    >
       {/* Custom Cursor */}
       <CustomCursor />
 
@@ -82,7 +97,7 @@ export default function SimpleMode() {
         <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
+          transition={{ delay: 0.5, duration: 0.3 }}
           onClick={() => {
             completeAction("action_7");
             router.push("/");
@@ -104,6 +119,6 @@ export default function SimpleMode() {
       <EducationSection />
       <ContactSection />
       <Footer />
-    </div>
+    </motion.div>
   );
 }

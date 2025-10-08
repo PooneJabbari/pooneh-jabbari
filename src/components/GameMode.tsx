@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, useDragControls } from "framer-motion";
+import dynamic from "next/dynamic";
 import {
   X,
   Minimize2,
@@ -21,13 +22,20 @@ import ExperienceSection from "./ExperienceSection";
 import SkillsSection from "./SkillsSection";
 import EducationSection from "./EducationSection";
 import ContactSection from "./ContactSection";
-import KeyboardHint from "./KeyboardHint";
-import DraggableBubble from "./DraggableBubble";
-import CustomCursor from "./CustomCursor";
-import DraggableParticles from "./DraggableParticles";
-import CongratulationsModal from "./CongratulationsModal";
 import content from "@/data/content.json";
 import { useGamification } from "@/contexts/GamificationContext";
+
+const KeyboardHint = dynamic(() => import("./KeyboardHint"), { ssr: false });
+const DraggableBubble = dynamic(() => import("./DraggableBubble"), {
+  ssr: false,
+});
+const CustomCursor = dynamic(() => import("./CustomCursor"), { ssr: false });
+const DraggableParticles = dynamic(() => import("./DraggableParticles"), {
+  ssr: false,
+});
+const CongratulationsModal = dynamic(() => import("./CongratulationsModal"), {
+  ssr: false,
+});
 
 type SectionId = "about" | "experience" | "skills" | "education" | "contact";
 
@@ -118,7 +126,13 @@ export default function GameMode() {
   const shouldShowGoldenButton = completedActions.size === 9;
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-background cursor-none">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 1.05 }}
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      className="fixed inset-0 overflow-hidden bg-background cursor-none"
+    >
       {/* Custom Cursor */}
       <CustomCursor />
 
@@ -132,7 +146,7 @@ export default function GameMode() {
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
             className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 bg-clip-text text-transparent"
           >
             {content.personal.name}
@@ -146,6 +160,7 @@ export default function GameMode() {
               muted
               loop
               playsInline
+              preload="auto"
               ref={(video) => {
                 if (video) {
                   (video as HTMLVideoElement).playbackRate = 3;
@@ -160,7 +175,7 @@ export default function GameMode() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
             className="flex flex-wrap items-center justify-center gap-4 pointer-events-auto"
           >
             <a
@@ -203,7 +218,7 @@ export default function GameMode() {
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
+        transition={{ delay: 0.5, duration: 0.3 }}
         onClick={() => {
           completeAction("action_7");
           router.push("/simple");
@@ -236,7 +251,7 @@ export default function GameMode() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.6 }}
+        transition={{ delay: 0.8, duration: 0.4 }}
         className="absolute bottom-24 right-24 flex flex-col gap-3"
       >
         <div className="flex items-center gap-3">
@@ -358,7 +373,7 @@ export default function GameMode() {
         isOpen={showCongratulationsModal}
         onClose={() => setShowCongratulationsModal(false)}
       />
-    </div>
+    </motion.div>
   );
 }
 

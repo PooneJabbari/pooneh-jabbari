@@ -2,7 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import GameMode from "@/components/GameMode";
+import dynamic from "next/dynamic";
+
+const GameMode = dynamic(() => import("@/components/GameMode"), {
+  ssr: false,
+  loading: () => (
+    <div className="fixed inset-0 bg-background flex items-center justify-center">
+      <div className="w-12 h-12 border-4 border-primary-500/30 border-t-primary-500 rounded-full animate-spin" />
+    </div>
+  ),
+});
 
 export default function Home() {
   const router = useRouter();
