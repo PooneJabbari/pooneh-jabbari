@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { GamificationProvider } from "@/contexts/GamificationContext";
 import GamificationProgress from "@/components/GamificationProgress";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({
       >
         <GamificationProvider>
           {children}
+          <SpeedInsights />
           <GamificationProgress />
         </GamificationProvider>
       </body>
