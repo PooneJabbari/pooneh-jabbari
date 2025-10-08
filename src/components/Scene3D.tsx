@@ -101,11 +101,27 @@ export function InteractiveBackground() {
   const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
 
   useEffect(() => {
+    let hasInteracted = false;
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: e.clientX / window.innerWidth,
         y: e.clientY / window.innerHeight,
       });
+
+      // Detect significant mouse movement (interaction)
+      if (!hasInteracted) {
+        const distance = Math.sqrt(
+          Math.pow(e.clientX / window.innerWidth - 0.5, 2) +
+            Math.pow(e.clientY / window.innerHeight - 0.5, 2)
+        );
+        if (distance > 0.1) {
+          hasInteracted = true;
+          // Trigger gamification action
+          const event = new CustomEvent("scene3d-interaction");
+          window.dispatchEvent(event);
+        }
+      }
     };
 
     window.addEventListener("mousemove", handleMouseMove);

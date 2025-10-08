@@ -131,7 +131,7 @@ export default function ContactSection() {
             </p>
 
             <a
-              href="mailto:poonehjabbari.98@gmail.com"
+              href={`mailto:${content.contact.email}`}
               className="inline-block px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full hover:shadow-2xl hover:shadow-primary-500/50 transition-all duration-300 transform hover:scale-105"
             >
               Get In Touch

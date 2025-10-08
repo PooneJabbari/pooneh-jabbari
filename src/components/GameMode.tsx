@@ -14,6 +14,7 @@ import {
   BriefcaseBusiness,
   Download,
   ScrollText,
+  Sparkles,
 } from "lucide-react";
 import AboutSection from "./AboutSection";
 import ExperienceSection from "./ExperienceSection";
@@ -23,7 +24,10 @@ import ContactSection from "./ContactSection";
 import KeyboardHint from "./KeyboardHint";
 import DraggableBubble from "./DraggableBubble";
 import CustomCursor from "./CustomCursor";
+import DraggableParticles from "./DraggableParticles";
+import CongratulationsModal from "./CongratulationsModal";
 import content from "@/data/content.json";
+import { useGamification } from "@/contexts/GamificationContext";
 
 type SectionId = "about" | "experience" | "skills" | "education" | "contact";
 
@@ -38,6 +42,9 @@ interface SectionModal {
 
 export default function GameMode() {
   const router = useRouter();
+  const { completeAction, completedActions } = useGamification();
+  const [showCongratulationsModal, setShowCongratulationsModal] =
+    useState(false);
   const [modals, setModals] = useState<Record<SectionId, SectionModal>>({
     about: {
       id: "about",
@@ -102,10 +109,21 @@ export default function GameMode() {
     }));
   };
 
+  const handleGoldenButtonClick = () => {
+    completeAction("action_10");
+    setShowCongratulationsModal(true);
+  };
+
+  // Check if 9 actions are completed (all except action_10)
+  const shouldShowGoldenButton = completedActions.size === 9;
+
   return (
     <div className="fixed inset-0 overflow-hidden bg-background cursor-none">
       {/* Custom Cursor */}
       <CustomCursor />
+
+      {/* Draggable Particles Background */}
+      <DraggableParticles />
 
       {/* Center Video with Name and Contact */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -171,6 +189,7 @@ export default function GameMode() {
             <a
               href="/resume/PoonehJabbariResume.pdf"
               download
+              onClick={() => completeAction("action_1")}
               className="glass px-4 py-2 rounded-full text-sm hover:glass-strong transition-all hover:scale-105 flex items-center gap-2"
             >
               <Download size={16} className="text-primary-400" />
@@ -185,7 +204,10 @@ export default function GameMode() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        onClick={() => router.push("/simple")}
+        onClick={() => {
+          completeAction("action_7");
+          router.push("/simple");
+        }}
         className="absolute top-8 left-8 flex items-center gap-2 px-3 py-2 text-foreground/55 hover:text-foreground/75 transition-colors pointer-events-auto"
       >
         <ScrollText size={14} />
@@ -249,6 +271,66 @@ export default function GameMode() {
         </div>
       </motion.div>
 
+      {/* Golden Achievement Button (Bottom Center) */}
+      <AnimatePresence>
+        {shouldShowGoldenButton && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.8 }}
+            transition={{
+              type: "spring",
+              damping: 15,
+              stiffness: 200,
+            }}
+            className="absolute bottom-24 left-1/2 -translate-x-1/2 pointer-events-auto"
+          >
+            <motion.button
+              onClick={handleGoldenButtonClick}
+              className="relative px-6 py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-semibold rounded-full shadow-lg shadow-yellow-500/50 transition-all hover:scale-110 flex items-center gap-2"
+              animate={{
+                boxShadow: [
+                  "0 10px 40px rgba(234, 179, 8, 0.5)",
+                  "0 10px 60px rgba(234, 179, 8, 0.8)",
+                  "0 10px 40px rgba(234, 179, 8, 0.5)",
+                ],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+              }}
+            >
+              <Sparkles className="w-5 h-5" />
+              <span>{content.achievements.goldenButtonLabel}</span>
+              <Sparkles className="w-5 h-5" />
+
+              {/* Animated particles around button */}
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1.5 h-1.5 bg-yellow-300 rounded-full"
+                  style={{
+                    left: "50%",
+                    top: "50%",
+                  }}
+                  animate={{
+                    x: Math.cos((i * Math.PI * 2) / 8) * 40,
+                    y: Math.sin((i * Math.PI * 2) / 8) * 40,
+                    opacity: [1, 0],
+                    scale: [0, 1, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: i * 0.2,
+                  }}
+                />
+              ))}
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Draggable Modals */}
       <AnimatePresence>
         {Object.values(modals).map((modal) =>
@@ -268,6 +350,13 @@ export default function GameMode() {
         onShowAbout={() => showModal("about")}
         onShowEducation={() => showModal("education")}
         onShowContact={() => showModal("contact")}
+        onKeyboardUsed={() => completeAction("action_4")}
+      />
+
+      {/* Congratulations Modal */}
+      <CongratulationsModal
+        isOpen={showCongratulationsModal}
+        onClose={() => setShowCongratulationsModal(false)}
       />
     </div>
   );
@@ -353,22 +442,33 @@ function KeyboardHandler({
   onShowAbout,
   onShowEducation,
   onShowContact,
+  onKeyboardUsed,
 }: {
   onShowAbout: () => void;
   onShowEducation: () => void;
   onShowContact: () => void;
+  onKeyboardUsed: () => void;
 }) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase();
-      if (key === "a") onShowAbout();
-      if (key === "e") onShowEducation();
-      if (key === "c") onShowContact();
+      if (key === "a") {
+        onShowAbout();
+        onKeyboardUsed();
+      }
+      if (key === "e") {
+        onShowEducation();
+        onKeyboardUsed();
+      }
+      if (key === "c") {
+        onShowContact();
+        onKeyboardUsed();
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onShowAbout, onShowEducation, onShowContact]);
+  }, [onShowAbout, onShowEducation, onShowContact, onKeyboardUsed]);
 
   return null;
 }

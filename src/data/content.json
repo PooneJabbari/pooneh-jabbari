@@ -53,31 +53,31 @@
     {
       "category": "Framework",
       "items": [
-        { "name": "Next.js", "level": 90 },
-        { "name": "React.js", "level": 90 }
+        { "name": "Next.js", "level": 80 },
+        { "name": "React.js", "level": 80 }
       ]
     },
     {
       "category": "Language",
       "items": [
         { "name": "TypeScript", "level": 90 },
-        { "name": "JavaScript", "level": 80 }
+        { "name": "JavaScript", "level": 75 }
       ]
     },
     {
       "category": "Mobile",
       "items": [
-        { "name": "React Native", "level": 85 },
+        { "name": "React Native", "level": 75 },
         { "name": "Expo", "level": 85 }
       ]
     },
     {
       "category": "Library",
       "items": [
-        { "name": "React-Hook-Form", "level": 90 },
-        { "name": "React-Query", "level": 90 },
-        { "name": "Zod", "level": 90 },
-        { "name": "CVA", "level": 85 },
+        { "name": "React-Hook-Form", "level": 95 },
+        { "name": "React-Query", "level": 95 },
+        { "name": "Zod", "level": 95 },
+        { "name": "CVA", "level": 95 },
         { "name": "React-Table", "level": 80 }
       ]
     },
@@ -91,30 +91,30 @@
     {
       "category": "State Management",
       "items": [
-        { "name": "Zustand", "level": 88 },
-        { "name": "Redux", "level": 85 }
+        { "name": "Zustand", "level": 80 },
+        { "name": "Redux", "level": 75 }
       ]
     },
     {
       "category": "API & Backend",
       "items": [
-        { "name": "TRPC", "level": 80 },
-        { "name": "REST APIs", "level": 88 }
+        { "name": "TRPC", "level": 50 },
+        { "name": "REST APIs", "level": 50 }
       ]
     },
     {
       "category": "UI Libraries",
       "items": [
-        { "name": "ShadCN", "level": 92 },
-        { "name": "Mantine", "level": 88 },
-        { "name": "Material UI", "level": 80 }
+        { "name": "ShadCN", "level": 95 },
+        { "name": "Mantine", "level": 95 },
+        { "name": "Material UI", "level": 75 }
       ]
     },
     {
       "category": "Tools & DevOps",
       "items": [
         { "name": "TurboRepo", "level": 85 },
-        { "name": "Git", "level": 90 }
+        { "name": "Git", "level": 85 }
       ]
     }
   ],
@@ -140,7 +140,7 @@
       "contactKey": "C"
     },
     "buttons": {
-      "switchToSimple": "Switch to Easy Mode",
+      "switchToSimple": "Switch to Simple Mode",
       "switchToGame": "Switch to Game Mode",
       "resumeDownload": "Download My Resume"
     }
@@ -179,5 +179,14 @@
     "by": "by",
     "author": "Pooneh Jabbari",
     "copyright": "All rights reserved."
+  },
+  "achievements": {
+    "goldenButtonLabel": "Unlock Final Achievement",
+    "modalTitle": "🎉 Congratulations!",
+    "modalMessage": "You've completed all the achievements and explored every corner of this portfolio!",
+    "modalSubMessage": "I'd love to hear your thoughts about this experience.",
+    "feedbackPrompt": "Share your feedback via email:",
+    "emailButtonLabel": "Send Feedback",
+    "closeButtonLabel": "Close"
   }
 }

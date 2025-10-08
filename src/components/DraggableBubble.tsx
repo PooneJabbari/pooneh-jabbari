@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, ChevronLeft } from "lucide-react";
+import { useGamification } from "@/contexts/GamificationContext";
 
 interface DraggableBubbleProps {
   onReveal: () => void;
@@ -19,6 +20,7 @@ export default function DraggableBubble({
 }: DraggableBubbleProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [shouldReset, setShouldReset] = useState(false);
+  const { completeAction } = useGamification();
 
   const handleDragEnd = (_: unknown, info: { offset: { x: number } }) => {
     setIsDragging(false);
@@ -33,6 +35,7 @@ export default function DraggableBubble({
     if (isCorrectDirection) {
       // Reveal modal and spring back to original position
       onReveal();
+      completeAction("action_2");
       setShouldReset(true);
       setTimeout(() => setShouldReset(false), 50);
     } else {

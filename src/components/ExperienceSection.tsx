@@ -8,6 +8,7 @@ import { ZohalLogo } from "./logos/ZohalLogo";
 import { PropertyHunterLogo } from "./logos/PropertyHunterLogo";
 import { MatapLogo } from "./logos/MatapLogo";
 import content from "@/data/content.json";
+import { useGamification } from "@/contexts/GamificationContext";
 
 export default function ExperienceSection() {
   const [ref, inView] = useInView({
@@ -16,6 +17,7 @@ export default function ExperienceSection() {
   });
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const { completeAction } = useGamification();
 
   const activeIndex = selectedIndex !== null ? selectedIndex : hoveredIndex;
 
@@ -125,13 +127,17 @@ export default function ExperienceSection() {
                         animate={inView ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 0.6, delay: index * 0.15 }}
                         className="relative pl-16 cursor-pointer"
-                        onMouseEnter={() => setHoveredIndex(index)}
+                        onMouseEnter={() => {
+                          setHoveredIndex(index);
+                          completeAction("action_6");
+                        }}
                         onMouseLeave={() => setHoveredIndex(null)}
-                        onClick={() =>
+                        onClick={() => {
                           setSelectedIndex(
                             selectedIndex === index ? null : index
-                          )
-                        }
+                          );
+                          completeAction("action_6");
+                        }}
                       >
                         {/* Timeline Node */}
                         <div

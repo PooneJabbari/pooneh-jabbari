@@ -4,12 +4,14 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Mail, Linkedin, MapPin, Phone, Download } from "lucide-react";
 import Scene3D from "./Scene3D";
 import content from "@/data/content.json";
+import { useGamification } from "@/contexts/GamificationContext";
 
 export default function HeroSection() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const scale = useTransform(scrollY, [0, 300], [1, 0.8]);
   const y = useTransform(scrollY, [0, 300], [0, 100]);
+  const { completeAction } = useGamification();
 
   return (
     <section
@@ -102,6 +104,7 @@ export default function HeroSection() {
             <a
               href="/resume/PoonehJabbariResume.pdf"
               download
+              onClick={() => completeAction("action_1")}
               className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full hover:shadow-2xl hover:shadow-primary-500/50 transition-all duration-300 transform hover:scale-105"
             >
               <Download size={18} />
