@@ -4,6 +4,7 @@ import "./globals.css";
 import { GamificationProvider } from "@/contexts/GamificationContext";
 import GamificationProgress from "@/components/GamificationProgress";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,6 +63,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
+      <GoogleTagManager gtmId="GTM-KPXZ8RSC" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
