@@ -33,6 +33,9 @@ export const metadata: Metadata = {
     "Pooneh Jabbari",
   ],
   authors: [{ name: "Pooneh Jabbari" }],
+  icons: {
+    icon: "/favicon.png",
+  },
   openGraph: {
     title: "Pooneh Jabbari | Frontend Developer",
     description:
