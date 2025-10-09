@@ -188,5 +188,20 @@
     "feedbackPrompt": "Share your feedback via email:",
     "emailButtonLabel": "Send Feedback",
     "closeButtonLabel": "Close"
+  },
+  "gamification": {
+    "tasks": {
+      "action_1": "Download my resume",
+      "action_2": "Drag buttons in correct direction (game mode)",
+      "action_3": "Interact with 3D scene (simple mode)",
+      "action_4": "Use keyboard shortcuts (A, E, or C keys)",
+      "action_5": "Scroll to end of simple mode",
+      "action_6": "Visit experience cards",
+      "action_7": "Switch between modes",
+      "action_8": "Explode a particle (game mode)",
+      "action_9": "Activate all tech stack card achievements simultaneously",
+      "action_10": "Click the golden achievement button"
+    },
+    "hintLabel": "Need a hint?"
   }
 }
