@@ -3,7 +3,7 @@
 import { useGamification } from "@/contexts/GamificationContext";
 import type { ActionId } from "@/contexts/GamificationContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { Trophy, Sparkles, HelpCircle } from "lucide-react";
+import { Trophy, Sparkles, HelpCircle, X } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import content from "@/data/content.json";
 
@@ -13,6 +13,8 @@ export default function GamificationProgress() {
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [showHintTooltip, setShowHintTooltip] = useState(false);
+  const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+  const [hasSeenWelcome, setHasSeenWelcome] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -23,6 +25,34 @@ export default function GamificationProgress() {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  // Show welcome popup when no achievements are completed
+  useEffect(() => {
+    if (completedActions.size === 0 && !hasSeenWelcome && !isMobile) {
+      const timer = setTimeout(() => {
+        setShowWelcomePopup(true);
+      }, 1500); // Show after 1.5s to let user settle in
+
+      return () => clearTimeout(timer);
+    }
+  }, [completedActions.size, hasSeenWelcome, isMobile]);
+
+  // Auto-hide welcome popup after 8 seconds
+  useEffect(() => {
+    if (showWelcomePopup) {
+      const timer = setTimeout(() => {
+        setShowWelcomePopup(false);
+        setHasSeenWelcome(true);
+      }, 8000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showWelcomePopup]);
+
+  const dismissWelcomePopup = () => {
+    setShowWelcomePopup(false);
+    setHasSeenWelcome(true);
+  };
 
   // Get a random remaining task hint
   const remainingTaskHint = useMemo(() => {
@@ -252,6 +282,74 @@ export default function GamificationProgress() {
               {remainingTaskHint}
             </div>
             <div className="absolute top-full left-6 -mt-1 w-2 h-2 bg-background/95 border-r border-b border-primary-500/30 transform rotate-45"></div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Welcome Popup - Shows when no achievements completed */}
+      <AnimatePresence>
+        {showWelcomePopup && completedActions.size === 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="absolute -top-32 left-0 w-80 px-4 py-3 bg-gradient-to-br from-primary-500/20 to-primary-600/10 border border-primary-500/40 rounded-lg rounded-bl-none shadow-2xl z-50 backdrop-blur-md pointer-events-auto"
+          >
+            {/* Close button */}
+            <button
+              onClick={dismissWelcomePopup}
+              className="absolute top-2 right-2 p-1 rounded hover:bg-primary-500/20 transition-colors"
+              aria-label="Close"
+            >
+              <X className="w-3.5 h-3.5 text-foreground/50" />
+            </button>
+
+            {/* Content */}
+            <div className="flex items-start gap-3">
+              <motion.div
+                animate={{
+                  rotate: [0, 10, -10, 10, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatDelay: 3,
+                }}
+                className="p-2 bg-primary-500/20 rounded-lg shrink-0"
+              >
+                <Sparkles className="w-5 h-5 text-primary-400" />
+              </motion.div>
+
+              <div>
+                <h4 className="text-sm font-semibold text-foreground/90 mb-1">
+                  Start Your Quest!
+                </h4>
+                <p className="text-xs text-foreground/70 leading-relaxed">
+                  Complete challenges to unlock achievements. Hover over this
+                  card and click the{" "}
+                  <HelpCircle className="w-3 h-3 inline text-primary-400" />{" "}
+                  icon for hints!
+                </p>
+              </div>
+            </div>
+
+            {/* Animated border glow */}
+            <motion.div
+              className="absolute inset-0 rounded-lg pointer-events-none"
+              animate={{
+                boxShadow: [
+                  "0 0 0 0 rgba(83, 127, 231, 0)",
+                  "0 0 20px 2px rgba(83, 127, 231, 0.3)",
+                  "0 0 0 0 rgba(83, 127, 231, 0)",
+                ],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
           </motion.div>
         )}
       </AnimatePresence>
