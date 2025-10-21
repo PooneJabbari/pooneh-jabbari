@@ -3,7 +3,7 @@
 import { useGamification } from "@/contexts/GamificationContext";
 import type { ActionId } from "@/contexts/GamificationContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { Trophy, Sparkles, HelpCircle, X } from "lucide-react";
+import { Trophy, Sparkles, HelpCircle, X, LightbulbIcon } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import content from "@/data/content.json";
 
@@ -210,7 +210,7 @@ export default function GamificationProgress() {
                       onMouseLeave={() => setShowHintTooltip(false)}
                       aria-label="Show hint"
                     >
-                      <HelpCircle className="w-3.5 h-3.5 text-primary-400" />
+                      <LightbulbIcon className="w-3.5 h-3.5 text-primary-400" />
                     </button>
                   )}
                 </div>
@@ -276,7 +276,7 @@ export default function GamificationProgress() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
             transition={{ duration: 0.2 }}
-            className="absolute -top-14 left-0 px-3 py-2 bg-background/95 border border-primary-500/30 rounded-lg shadow-xl max-w-xs z-50 backdrop-blur-sm pointer-events-none"
+            className="absolute -top-20 left-0 px-3 py-2 bg-background/95 border border-primary-500/30 rounded-lg shadow-xl max-w-xs z-50 backdrop-blur-sm pointer-events-none"
           >
             <div className="text-xs text-foreground/90 leading-relaxed">
               {remainingTaskHint}
