@@ -101,139 +101,97 @@ export default function GamificationProgress() {
         className="relative bg-primary-500/10 border border-primary-500/30 rounded-lg shadow-lg overflow-hidden"
         initial={false}
         animate={{
-          width: "auto",
-          height: "auto",
+          width: isHovered ? 220 : 92,
+          height: isHovered ? 65 : 44,
         }}
         transition={{
           duration: 0.3,
-          ease: "easeInOut",
+          ease: [0.4, 0, 0.2, 1],
         }}
       >
-        <motion.div
-          className="relative"
-          initial={false}
-          animate={{
-            paddingLeft: isHovered ? "1rem" : "0.5rem",
-            paddingRight: isHovered ? "1rem" : "0.5rem",
-            paddingTop: isHovered ? "0.75rem" : "0.5rem",
-            paddingBottom: isHovered ? "0.75rem" : "0.5rem",
-          }}
-          transition={{
-            duration: 0.3,
-            ease: "easeInOut",
-          }}
-        >
-          {/* Minimized state - icon + counter */}
-          <AnimatePresence>
-            {!isHovered && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="flex items-center gap-2 whitespace-nowrap"
-              >
-                <motion.div
-                  className={`p-1.5 rounded ${
-                    isRewardUnlocked ? "bg-yellow-500/20" : "bg-primary-500/20"
-                  }`}
-                  animate={
-                    isRewardUnlocked
-                      ? {
-                          scale: [1, 1.05, 1],
-                        }
-                      : {}
-                  }
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatDelay: 1,
-                  }}
-                >
-                  {isRewardUnlocked ? (
-                    <Trophy className="w-4 h-4 text-yellow-400" />
-                  ) : (
-                    <Sparkles className="w-4 h-4 text-primary-400" />
-                  )}
-                </motion.div>
-                <span className="text-xs text-foreground/70 font-mono">
-                  {completedActions.size}/{totalActions}
-                </span>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Expanded state - full content */}
-          <AnimatePresence>
-            {isHovered && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                {/* Header */}
-                <div className="flex items-center gap-2.5 mb-2.5 whitespace-nowrap">
-                  <motion.div
-                    className={`p-1.5 rounded ${
-                      isRewardUnlocked
-                        ? "bg-yellow-500/20"
-                        : "bg-primary-500/20"
-                    }`}
-                    animate={
-                      isRewardUnlocked
-                        ? {
-                            scale: [1, 1.05, 1],
-                          }
-                        : {}
+        <div className="relative w-full h-full p-2">
+          {/* Icon + Counter - Always present */}
+          <div className="flex items-center gap-2 whitespace-nowrap">
+            <motion.div
+              className={`p-1.5 rounded ${
+                isRewardUnlocked ? "bg-yellow-500/20" : "bg-primary-500/20"
+              }`}
+              animate={
+                isRewardUnlocked
+                  ? {
+                      scale: [1, 1.05, 1],
                     }
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatDelay: 1,
-                    }}
-                  >
-                    {isRewardUnlocked ? (
-                      <Trophy className="w-4 h-4 text-yellow-400" />
-                    ) : (
-                      <Sparkles className="w-4 h-4 text-primary-400" />
-                    )}
-                  </motion.div>
-                  <span className="text-xs text-foreground/70 font-mono">
-                    {completedActions.size}/{totalActions}
-                  </span>
-                  {/* Hint button */}
-                  {remainingTaskHint && (
-                    <button
-                      className="p-1 rounded hover:bg-primary-500/20 transition-colors ml-auto"
-                      onMouseEnter={() => setShowHintTooltip(true)}
-                      onMouseLeave={() => setShowHintTooltip(false)}
-                      aria-label="Show hint"
-                    >
-                      <LightbulbIcon className="w-3.5 h-3.5 text-primary-400" />
-                    </button>
-                  )}
-                </div>
+                  : {}
+              }
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatDelay: 1,
+              }}
+            >
+              {isRewardUnlocked ? (
+                <Trophy className="w-4 h-4 text-yellow-400" />
+              ) : (
+                <Sparkles className="w-4 h-4 text-primary-400" />
+              )}
+            </motion.div>
+            <span className="text-xs text-foreground/70 font-mono">
+              {completedActions.size}/{totalActions}
+            </span>
 
-                {/* Step indicators */}
-                <div className="flex gap-1">
-                  {Array.from({ length: totalActions }).map((_, index) => (
-                    <motion.div
-                      key={index}
-                      className={`w-4 h-1 rounded-full ${
-                        index < completedActions.size
-                          ? "bg-primary-500"
-                          : "bg-foreground/10"
-                      }`}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: index * 0.05 }}
-                    />
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+            {/* Hint button - appears with opacity */}
+            <motion.button
+              className="p-1 rounded hover:bg-primary-500/20 transition-colors ml-auto"
+              onMouseEnter={() => setShowHintTooltip(true)}
+              onMouseLeave={() => setShowHintTooltip(false)}
+              aria-label="Show hint"
+              initial={false}
+              animate={{
+                opacity: isHovered && remainingTaskHint ? 1 : 0,
+                pointerEvents: isHovered && remainingTaskHint ? "auto" : "none",
+              }}
+              transition={{
+                duration: 0.2,
+              }}
+            >
+              <LightbulbIcon className="w-3.5 h-3.5 text-primary-400" />
+            </motion.button>
+          </div>
+
+          {/* Progress bar - appears with opacity and scale */}
+          <motion.div
+            className="flex gap-1 mt-2.5"
+            initial={false}
+            animate={{
+              opacity: isHovered ? 1 : 0,
+              scaleY: isHovered ? 1 : 0,
+              height: isHovered ? "auto" : 0,
+            }}
+            transition={{
+              duration: 0.3,
+              ease: [0.4, 0, 0.2, 1],
+            }}
+            style={{
+              transformOrigin: "top",
+            }}
+          >
+            {Array.from({ length: totalActions }).map((_, index) => (
+              <motion.div
+                key={index}
+                className={`w-4 h-1 rounded-full ${
+                  index < completedActions.size
+                    ? "bg-primary-500"
+                    : "bg-foreground/10"
+                }`}
+                initial={{ scale: 0 }}
+                animate={{ scale: isHovered ? 1 : 0 }}
+                transition={{
+                  delay: isHovered ? index * 0.05 : 0,
+                  duration: 0.2,
+                }}
+              />
+            ))}
+          </motion.div>
 
           {/* Particle effect when rewarded */}
           <AnimatePresence>
@@ -265,7 +223,7 @@ export default function GamificationProgress() {
               </>
             )}
           </AnimatePresence>
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* Tooltip - positioned outside card to avoid clipping */}
@@ -328,7 +286,7 @@ export default function GamificationProgress() {
                 <p className="text-xs text-foreground/70 leading-relaxed">
                   Complete challenges to unlock achievements. Hover over this
                   card and click the{" "}
-                  <HelpCircle className="w-3 h-3 inline text-primary-400" />{" "}
+                  <LightbulbIcon className="w-3 h-3 inline text-primary-400" />{" "}
                   icon for hints!
                 </p>
               </div>
