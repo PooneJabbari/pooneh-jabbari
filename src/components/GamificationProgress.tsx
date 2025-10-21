@@ -246,12 +246,12 @@ export default function GamificationProgress() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
             transition={{ duration: 0.2 }}
-            className="absolute -top-14 right-0 px-3 py-2 bg-background/95 border border-primary-500/30 rounded-lg shadow-xl whitespace-nowrap z-50 backdrop-blur-sm pointer-events-none"
+            className="absolute -top-14 left-0 px-3 py-2 bg-background/95 border border-primary-500/30 rounded-lg shadow-xl max-w-xs z-50 backdrop-blur-sm pointer-events-none"
           >
-            <div className="text-xs text-foreground/90">
+            <div className="text-xs text-foreground/90 leading-relaxed">
               {remainingTaskHint}
             </div>
-            <div className="absolute top-full right-6 -mt-1 w-2 h-2 bg-background/95 border-r border-b border-primary-500/30 transform rotate-45"></div>
+            <div className="absolute top-full left-6 -mt-1 w-2 h-2 bg-background/95 border-r border-b border-primary-500/30 transform rotate-45"></div>
           </motion.div>
         )}
       </AnimatePresence>

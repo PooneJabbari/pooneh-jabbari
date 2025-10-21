@@ -247,16 +247,16 @@
   },
   "gamification": {
     "tasks": {
-      "action_1": "Download my resume",
-      "action_2": "Drag buttons in correct direction (game mode)",
-      "action_3": "Interact with 3D scene (simple mode)",
-      "action_4": "Use keyboard shortcuts (A, E, or C keys)",
-      "action_5": "Scroll to end of simple mode",
-      "action_6": "Visit experience cards",
-      "action_7": "Switch between modes",
-      "action_8": "Explode a particle (game mode)",
-      "action_9": "Activate all tech stack card achievements simultaneously",
-      "action_10": "Click the golden achievement button"
+      "action_1": "Download my resume - Look for the download button in the hero section",
+      "action_2": "Master the bubble controls - Drag the bubble left for skills, right for experience (game mode)",
+      "action_3": "Discover the 3D magic - Click and drag to rotate the 3D scene (simple mode)",
+      "action_4": "Become a keyboard ninja - Press A for About, E for Education, or C for Contact",
+      "action_5": "Journey to the end - Scroll all the way down in simple mode to reveal everything",
+      "action_6": "Explore my journey - Click on all three experience timeline cards",
+      "action_7": "Try both worlds - Toggle between Simple and Game modes using the switch button",
+      "action_8": "Create fireworks - Click on a floating particle to make it explode (game mode)",
+      "action_9": "Light them all up - Hover over every tech stack card until all achievement icons appear at once",
+      "action_10": "Claim your victory - Find and click the golden achievement button when all tasks are complete"
     },
     "hintLabel": "Need a hint?"
   }
