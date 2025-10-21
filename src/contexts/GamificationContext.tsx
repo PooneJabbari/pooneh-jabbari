@@ -54,6 +54,16 @@ export function GamificationProvider({
     }
   }, []);
 
+  // Apply golden theme when all achievements are completed
+  useEffect(() => {
+    const isRewardUnlocked = completedActions.size >= totalActions;
+    if (isRewardUnlocked) {
+      document.documentElement.classList.add("golden");
+    } else {
+      document.documentElement.classList.remove("golden");
+    }
+  }, [completedActions, totalActions]);
+
   // Save progress to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem(

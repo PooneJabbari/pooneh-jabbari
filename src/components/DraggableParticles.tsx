@@ -35,7 +35,12 @@ export default function DraggableParticles() {
   // Initialize particles
   useEffect(() => {
     const particleCount = 30;
-    const colors = ["#537FE7", "#6B95F0", "#87B1F9", "#AFCBFB"];
+    const colors = [
+      "var(--color-primary-500)",
+      "var(--color-primary-400)",
+      "var(--color-primary-300)",
+      "var(--color-primary-200)",
+    ];
     const width = typeof window !== "undefined" ? window.innerWidth : 1920;
     const height = typeof window !== "undefined" ? window.innerHeight : 1080;
 

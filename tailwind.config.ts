@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: "class",
+  darkMode: ["class", '[data-mode="dark"]'],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,19 +10,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Custom blue theme based on #537FE7
+        // Primary colors reference CSS custom properties (blue by default, gold when .golden class is active)
         primary: {
-          50: "#EBF2FE",
-          100: "#D7E5FD",
-          200: "#AFCBFB",
-          300: "#87B1F9",
-          400: "#6B95F0",
-          500: "#537FE7", // Main color
-          600: "#3D6AD6",
-          700: "#2D54C5",
-          800: "#2343A3",
-          900: "#1A3282",
-          950: "#0F1E52",
+          50: "var(--color-primary-50)",
+          100: "var(--color-primary-100)",
+          200: "var(--color-primary-200)",
+          300: "var(--color-primary-300)",
+          400: "var(--color-primary-400)",
+          500: "var(--color-primary-500)",
+          600: "var(--color-primary-600)",
+          700: "var(--color-primary-700)",
+          800: "var(--color-primary-800)",
+          900: "var(--color-primary-900)",
+          950: "var(--color-primary-950)",
         },
       },
     },

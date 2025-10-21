@@ -44,10 +44,10 @@ function MinimalRing({
     <mesh ref={ringRef} position={[0, 0, 0]}>
       <torusGeometry args={[2, 0.02, 16, 100]} />
       <meshStandardMaterial
-        color="#537FE7"
+        color="var(--color-primary-500)"
         transparent
         opacity={0.15}
-        emissive="#6B95F0"
+        emissive="var(--color-primary-400)"
         emissiveIntensity={0.2}
       />
     </mesh>
@@ -87,7 +87,7 @@ function MinimalParticles() {
       </bufferGeometry>
       <pointsMaterial
         size={0.02}
-        color="#87B1F9"
+        color="var(--color-primary-300)"
         transparent
         opacity={0.2}
         sizeAttenuation
@@ -206,7 +206,11 @@ export default function Scene3D() {
       >
         <ambientLight intensity={0.15} />
         <directionalLight position={[5, 5, 5]} intensity={0.3} />
-        <pointLight position={[0, 0, 0]} intensity={0.2} color="#537FE7" />
+        <pointLight
+          position={[0, 0, 0]}
+          intensity={0.2}
+          color="var(--color-primary-500)"
+        />
 
         <MinimalRing mousePosition={mousePosition} />
         <MinimalParticles />

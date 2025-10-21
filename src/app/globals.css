@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant golden (&:is(.golden *));
 
 @theme inline {
   --color-background: var(--background);
@@ -9,18 +10,18 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  /* Primary blue color palette */
-  --color-primary-50: #ebf2fe;
-  --color-primary-100: #d7e5fd;
-  --color-primary-200: #afcbfb;
-  --color-primary-300: #87b1f9;
-  --color-primary-400: #6b95f0;
-  --color-primary-500: #537fe7;
-  --color-primary-600: #3d6ad6;
-  --color-primary-700: #2d54c5;
-  --color-primary-800: #2343a3;
-  --color-primary-900: #1a3282;
-  --color-primary-950: #0f1e52;
+  /* Primary colors - reference CSS custom properties that can be overridden */
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+  --color-primary-900: var(--primary-900);
+  --color-primary-950: var(--primary-950);
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -59,6 +60,20 @@
 
 :root {
   --radius: 0.625rem;
+
+  /* Primary color palette (blue by default, gold in golden mode) */
+  --primary-50: #ebf2fe;
+  --primary-100: #d7e5fd;
+  --primary-200: #afcbfb;
+  --primary-300: #87b1f9;
+  --primary-400: #6b95f0;
+  --primary-500: #537fe7;
+  --primary-600: #3d6ad6;
+  --primary-700: #2d54c5;
+  --primary-800: #2343a3;
+  --primary-900: #1a3282;
+  --primary-950: #0f1e52;
+
   /* Dark mode only colors */
   --background: oklch(0.13 0.028 261.692);
   --foreground: oklch(0.985 0.002 247.839);
@@ -93,6 +108,22 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+/* Golden theme - primary colors override */
+:root.golden,
+html.golden {
+  --primary-50: #faf9ec;
+  --primary-100: #f4f0cd;
+  --primary-200: #ebdf9d;
+  --primary-300: #dfc865;
+  --primary-400: #d4af37;
+  --primary-500: #c59b2d;
+  --primary-600: #aa7a24;
+  --primary-700: #885920;
+  --primary-800: #724921;
+  --primary-900: #623e21;
+  --primary-950: #382010;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -120,6 +151,15 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #3d6ad6 0%, #537fe7 100%);
+  }
+
+  /* Golden theme scrollbar */
+  .golden ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #c59b2d 0%, #d4af37 100%);
+  }
+
+  .golden ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #aa7a24 0%, #c59b2d 100%);
   }
 }
 

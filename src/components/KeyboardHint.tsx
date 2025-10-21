@@ -26,7 +26,9 @@ export default function KeyboardHint({ keyLabel, onClick }: KeyboardHintProps) {
       <motion.span
         animate={{
           scale: isHovered ? 1 / 1.15 : 1,
-          color: isHovered ? "#87B1F9" : "#6B95F0",
+          color: isHovered
+            ? "var(--color-primary-300)"
+            : "var(--color-primary-400)",
         }}
         transition={{ duration: 0.2 }}
         className="inline-block"
