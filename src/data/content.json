@@ -53,68 +53,124 @@
     {
       "category": "Framework",
       "items": [
-        { "name": "Next.js", "level": 80 },
-        { "name": "React.js", "level": 80 }
+        {
+          "name": "Next.js",
+          "description": "Full-stack React framework for production apps"
+        },
+        {
+          "name": "React.js",
+          "description": "Building interactive user interfaces"
+        }
       ]
     },
     {
       "category": "Language",
       "items": [
-        { "name": "TypeScript", "level": 90 },
-        { "name": "JavaScript", "level": 75 }
+        {
+          "name": "TypeScript",
+          "description": "Type-safe JavaScript for scalable applications"
+        },
+        {
+          "name": "JavaScript",
+          "description": "Core language for web development"
+        }
       ]
     },
     {
       "category": "Mobile",
       "items": [
-        { "name": "React Native", "level": 75 },
-        { "name": "Expo", "level": 85 }
+        {
+          "name": "React Native",
+          "description": "Cross-platform mobile development"
+        },
+        {
+          "name": "Expo",
+          "description": "Rapid mobile app development platform"
+        }
       ]
     },
     {
       "category": "Library",
       "items": [
-        { "name": "React-Hook-Form", "level": 95 },
-        { "name": "React-Query", "level": 95 },
-        { "name": "Zod", "level": 95 },
-        { "name": "CVA", "level": 95 },
-        { "name": "React-Table", "level": 80 }
+        {
+          "name": "React-Hook-Form",
+          "description": "Performant form validation & management"
+        },
+        {
+          "name": "React-Query",
+          "description": "Powerful data fetching & caching"
+        },
+        { "name": "Zod", "description": "TypeScript-first schema validation" },
+        {
+          "name": "CVA",
+          "description": "Class variance authority for component variants"
+        },
+        {
+          "name": "React-Table",
+          "description": "Headless UI for building data tables"
+        }
       ]
     },
     {
       "category": "Styling",
       "items": [
-        { "name": "Tailwind CSS", "level": 95 },
-        { "name": "Nativewind", "level": 85 }
+        {
+          "name": "Tailwind CSS",
+          "description": "Utility-first CSS framework"
+        },
+        { "name": "Nativewind", "description": "Tailwind for React Native" }
       ]
     },
     {
       "category": "State Management",
       "items": [
-        { "name": "Zustand", "level": 80 },
-        { "name": "Redux", "level": 75 }
+        {
+          "name": "Zustand",
+          "description": "Lightweight state management solution"
+        },
+        { "name": "Redux", "description": "Predictable state container" }
       ]
     },
     {
       "category": "API & Backend",
       "items": [
-        { "name": "TRPC", "level": 50 },
-        { "name": "REST APIs", "level": 50 }
+        { "name": "TRPC", "description": "End-to-end type-safe APIs" },
+        {
+          "name": "REST APIs",
+          "description": "RESTful API integration & design"
+        }
       ]
     },
     {
       "category": "UI Libraries",
       "items": [
-        { "name": "ShadCN", "level": 95 },
-        { "name": "Mantine", "level": 95 },
-        { "name": "Material UI", "level": 75 }
+        {
+          "name": "Shadcn UI",
+          "description": "Beautifully designed components based on Radix UI"
+        },
+        {
+          "name": "Mantine",
+          "description": "Full-featured React components library"
+        },
+        {
+          "name": "Material UI",
+          "description": "Google's Material Design in React"
+        }
       ]
     },
     {
       "category": "Tools & DevOps",
       "items": [
-        { "name": "TurboRepo", "level": 85 },
-        { "name": "Git", "level": 85 }
+        {
+          "name": "TurboRepo",
+          "description": "High-performance monorepo build system"
+        },
+        { "name": "Git", "description": "Version control & collaboration" },
+        { "name": "Cursor", "description": "AI-powered code editor" },
+        {
+          "name": "Claude",
+          "description": "Advanced AI assistant for development"
+        }
       ]
     }
   ],

@@ -103,7 +103,10 @@ function CategoryCard({
   setHoveredCategory,
   onAchievementActiveChange,
 }: {
-  category: { category: string; items: { name: string; level: number }[] };
+  category: {
+    category: string;
+    items: { name: string; description: string }[];
+  };
   catIndex: number;
   inView: boolean;
   hoveredCategory: string | null;
@@ -120,6 +123,7 @@ function CategoryCard({
   const [progress, setProgress] = useState(0);
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
   const rotateX = useTransform(mouseY, [-0.5, 0.5], [5, -5]);
   const rotateY = useTransform(mouseX, [-0.5, 0.5], [-5, 5]);
@@ -327,6 +331,7 @@ function CategoryCard({
       {/* Skills List */}
       <div className="space-y-3 relative z-10">
         {category.items.map((skill, index) => {
+          const isHovered = hoveredSkill === skill.name;
           return (
             <motion.div
               key={skill.name}
@@ -336,29 +341,39 @@ function CategoryCard({
                 duration: 0.3,
                 delay: catIndex * 0.1 + index * 0.05,
               }}
-              className="flex items-center justify-between"
+              onMouseEnter={() => setHoveredSkill(skill.name)}
+              onMouseLeave={() => setHoveredSkill(null)}
+              className="relative cursor-default"
             >
-              <span className="text-sm font-medium text-foreground/90">
-                {skill.name}
-              </span>
-
-              <div className="flex items-center gap-2">
-                <div className="w-12 h-1 bg-primary-950/30 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={inView ? { width: `${skill.level}%` } : {}}
-                    transition={{
-                      duration: 0.8,
-                      delay: catIndex * 0.1 + index * 0.05 + 0.2,
-                      ease: [0.25, 0.1, 0.25, 1],
-                    }}
-                    className="h-full bg-gradient-to-r from-primary-500 to-primary-400 rounded-full"
-                  />
-                </div>
-                <span className="text-xs font-mono w-8 text-right text-foreground/40">
-                  {skill.level}%
+              <motion.div
+                animate={{
+                  y: isHovered ? -2 : 0,
+                }}
+                transition={{ duration: 0.2 }}
+              >
+                <span className="text-sm font-medium text-foreground/90">
+                  {skill.name}
                 </span>
-              </div>
+              </motion.div>
+
+              <AnimatePresence>
+                {isHovered && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -5, height: 0 }}
+                    animate={{ opacity: 1, y: 0, height: "auto" }}
+                    exit={{ opacity: 0, y: -5, height: 0 }}
+                    transition={{
+                      duration: 0.2,
+                      ease: [0.4, 0, 0.2, 1],
+                    }}
+                    className="overflow-hidden"
+                  >
+                    <p className="text-xs text-foreground/60 mt-1 leading-relaxed">
+                      {skill.description}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           );
         })}
