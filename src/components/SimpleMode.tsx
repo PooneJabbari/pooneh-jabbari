@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
@@ -27,6 +27,7 @@ const InteractiveBackground = dynamic(
 
 export default function SimpleMode() {
   const router = useRouter();
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const { completeAction } = useGamification();
 
@@ -54,34 +55,26 @@ export default function SimpleMode() {
   }, [completeAction]);
 
   useEffect(() => {
-    // Detect scroll to bottom
-    const handleScroll = () => {
-      const scrollContainer = document.querySelector(".simple-mode-container");
-      if (scrollContainer) {
-        const scrollTop = scrollContainer.scrollTop;
-        const scrollHeight = scrollContainer.scrollHeight;
-        const clientHeight = scrollContainer.clientHeight;
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
 
-        // Check if user scrolled to within 100px of the bottom
-        if (scrollTop + clientHeight >= scrollHeight - 100) {
-          completeAction("action_5");
-        }
+    const handleScroll = () => {
+      if (
+        scrollContainer.scrollTop + scrollContainer.clientHeight >=
+        scrollContainer.scrollHeight - 100
+      ) {
+        completeAction("action_5");
+        scrollContainer.removeEventListener("scroll", handleScroll);
       }
     };
 
-    const scrollContainer = document.querySelector(".simple-mode-container");
-    if (scrollContainer) {
-      scrollContainer.addEventListener("scroll", handleScroll);
-      return () => scrollContainer.removeEventListener("scroll", handleScroll);
-    }
+    scrollContainer.addEventListener("scroll", handleScroll, { passive: true });
+    return () => scrollContainer.removeEventListener("scroll", handleScroll);
   }, [completeAction]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.4, ease: "easeInOut" }}
+    <div
+      ref={scrollRef}
       className="relative snap-y snap-proximity h-screen overflow-y-scroll cursor-none simple-mode-container"
     >
       {/* Custom Cursor */}
@@ -119,6 +112,6 @@ export default function SimpleMode() {
       <EducationSection />
       <ContactSection />
       <Footer />
-    </motion.div>
+    </div>
   );
 }

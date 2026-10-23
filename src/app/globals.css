@@ -179,6 +179,28 @@ html.golden {
     border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
+  /* Flat fills so scrolling cards do not resample a live backdrop. */
+  .simple-mode-container :is(.glass, .glass-strong) {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: color-mix(in oklab, var(--card) 86%, transparent);
+  }
+
+  .simple-mode-container .glass-strong,
+  .simple-mode-container .hover\:glass-strong:hover {
+    background: color-mix(in oklab, var(--card) 94%, transparent);
+  }
+
+  .simple-mode-container > section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 100vh;
+  }
+
+  .simple-mode-container > footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 8rem;
+  }
+
   /* Force mobile-friendly layout when sections are embedded in game mode modals */
   .modal-embed {
     /* Constrain typography spacing */

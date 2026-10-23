@@ -1,21 +1,11 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Mail, Linkedin, MapPin, Phone, Download } from "lucide-react";
-import dynamic from "next/dynamic";
 import content from "@/data/content.json";
 import { useGamification } from "@/contexts/GamificationContext";
 
-const Scene3D = dynamic(() => import("./Scene3D"), {
-  ssr: false,
-  loading: () => <div className="absolute inset-0 -z-10" />,
-});
-
 export default function HeroSection() {
-  const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const scale = useTransform(scrollY, [0, 300], [1, 0.8]);
-  const y = useTransform(scrollY, [0, 300], [0, 100]);
   const { completeAction } = useGamification();
 
   return (
@@ -23,12 +13,7 @@ export default function HeroSection() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start"
     >
-      <Scene3D />
-
-      <motion.div
-        className="relative z-10 container mx-auto px-6 py-20 md:py-0 text-center"
-        style={{ opacity, scale, y }}
-      >
+      <div className="relative z-10 container mx-auto px-6 py-20 md:py-0 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -117,7 +102,7 @@ export default function HeroSection() {
             </a>
           </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
 
       <motion.div
         className="hidden md:flex absolute bottom-10 left-1/2 -translate-x-1/2"
