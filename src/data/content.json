@@ -1,7 +1,7 @@
 {
   "personal": {
     "name": "POONEH JABBARI",
-    "title": "Frontend Developer | Next.js, React.js",
+    "title": "Senior Frontend Developer | Next.js, React.js",
     "location": "Tehran, Iran",
     "bio": "Experienced Frontend Developer with 6+ years of expertise, combining a strong work ethic with versatile technical skills. Passionate about leveraging cutting-edge technologies to build impactful solutions and drive a company's mission forward.",
     "yearsExperience": "6+",
@@ -144,7 +144,11 @@
           "name": "Tailwind CSS",
           "description": "Utility-first CSS framework"
         },
-        { "name": "Nativewind", "description": "Tailwind for React Native" }
+        { "name": "Nativewind", "description": "Tailwind for React Native" },
+        {
+          "name": "CSS Modules",
+          "description": "Scoped styles for component-level CSS"
+        }
       ]
     },
     {
@@ -191,11 +195,23 @@
           "name": "TurboRepo",
           "description": "High-performance monorepo build system"
         },
+        {
+          "name": "Electron",
+          "description": "Cross-platform desktop application development"
+        },
         { "name": "Git", "description": "Version control & collaboration" },
         { "name": "Cursor", "description": "AI-powered code editor" },
         {
-          "name": "Claude",
-          "description": "Advanced AI assistant for development"
+          "name": "PWA",
+          "description": "Installable web apps with offline support"
+        },
+        {
+          "name": "WireGuard",
+          "description": "Modern VPN protocol for secure traffic routing"
+        },
+        {
+          "name": "sing-box",
+          "description": "Proxy platform for optimized network routing"
         }
       ]
     }
@@ -232,11 +248,11 @@
       "title": "About Me",
       "subtitle": "Crafting Digital Experiences",
       "paragraphs": [
-        "I'm a passionate Frontend Developer with over 5 years of professional experience building cutting-edge web applications. My journey in software development has led me to work with innovative companies, creating seamless user experiences that make a difference.",
+        "I'm a passionate Frontend Developer with over 6 years of professional experience building cutting-edge web applications. My journey in software development has led me to work with innovative companies, creating seamless user experiences that make a difference.",
         "From architecting scalable Next.js applications with B2B integrations to leading full-stack development of responsive mobile applications, I bring a comprehensive skill set that bridges technical excellence with user-centric design."
       ],
       "stats": [
-        { "value": "5+", "label": "Years Experience" },
+        { "value": "6+", "label": "Years Experience" },
         { "value": "15+", "label": "Tech Stack" }
       ],
       "videoAlt": "Your browser does not support the video tag."
