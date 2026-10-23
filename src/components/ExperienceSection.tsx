@@ -9,6 +9,8 @@ import { PropertyHunterLogo } from "./logos/PropertyHunterLogo";
 import { MatapLogo } from "./logos/MatapLogo";
 import content from "@/data/content.json";
 import { useGamification } from "@/contexts/GamificationContext";
+import { KaramadLogo } from "./logos/KaramadLogo";
+import { ArenaLogo } from "./logos/ArenaLogo";
 
 export default function ExperienceSection() {
   const [ref, inView] = useInView({
@@ -21,15 +23,25 @@ export default function ExperienceSection() {
 
   const activeIndex = selectedIndex !== null ? selectedIndex : hoveredIndex;
 
-  const getLogoComponent = (company: string, size: string = "w-8 h-8") => {
+
+
+  const getLogoComponent = (
+    company: (typeof content.experience)[number]["company"],
+  ) => {
     if (company === "Zohal") {
-      return <ZohalLogo className={size} />;
+      return <ZohalLogo className="size-8" />;
     } else if (company === "Interactive10 - Property Hunter") {
-      return <PropertyHunterLogo className={size} />;
+      return <PropertyHunterLogo className="size-8" />;
     } else if (company === "Matap") {
-      return <MatapLogo className={size === "w-8 h-8" ? "w-6 h-6" : size} />;
+      return <MatapLogo className="size-6" />;
     }
-    return <Briefcase className="w-6 h-6 text-primary-500" />;
+    else if (company === "Arena Group") {
+      return <ArenaLogo className="size-8" />;
+    }
+    else if (company === "Karamad Financial Group") {
+      return <KaramadLogo className="size-6" />;
+    }
+    return <Briefcase className="size-6 text-primary-500" />;
   };
 
   const renderDetailsCard = (index: number) => (
@@ -141,28 +153,20 @@ export default function ExperienceSection() {
                       >
                         {/* Timeline Node */}
                         <div
-                          className={`absolute left-0 w-12 h-12 rounded-full border-4 border-background flex items-center justify-center transition-all duration-300 ${
-                            activeIndex === index
-                              ? "bg-primary-500 scale-110 shadow-lg shadow-primary-500/50"
-                              : "bg-primary-500/50 hover:bg-primary-500"
-                          }`}
+                          className={`absolute left-0 w-12 h-12 rounded-full border-4 border-background flex items-center justify-center transition-all duration-300 ${activeIndex === index
+                            ? "bg-primary-500 scale-110 shadow-lg shadow-primary-500/50"
+                            : "bg-primary-500/50 hover:bg-primary-500"
+                            }`}
                         >
-                          {getLogoComponent(
-                            exp.company,
-                            "w-8 h-8 transition-opacity " +
-                              (activeIndex === index
-                                ? "opacity-100"
-                                : "opacity-80")
-                          )}
+                          {getLogoComponent(exp.company)}
                         </div>
 
                         {/* Node Content */}
                         <div
-                          className={`glass p-4 rounded-lg transition-all duration-300 ${
-                            activeIndex === index
-                              ? "glass-strong shadow-lg shadow-primary-500/20"
-                              : "hover:glass-strong"
-                          }`}
+                          className={`glass p-4 rounded-lg transition-all duration-300 ${activeIndex === index
+                            ? "glass-strong shadow-lg shadow-primary-500/20"
+                            : "hover:glass-strong"
+                            }`}
                         >
                           <h3 className="text-lg font-bold text-foreground mb-1">
                             {exp.title}

@@ -3,8 +3,8 @@
     "name": "POONEH JABBARI",
     "title": "Frontend Developer | Next.js, React.js",
     "location": "Tehran, Iran",
-    "bio": "Experienced Frontend Developer with 5+ years of expertise, combining a strong work ethic with versatile technical skills. Passionate about leveraging cutting-edge technologies to build impactful solutions and drive a company's mission forward.",
-    "yearsExperience": "5+",
+    "bio": "Experienced Frontend Developer with 6+ years of expertise, combining a strong work ethic with versatile technical skills. Passionate about leveraging cutting-edge technologies to build impactful solutions and drive a company's mission forward.",
+    "yearsExperience": "6+",
     "projectsCompleted": "20+"
   },
   "contact": {
@@ -15,10 +15,36 @@
   },
   "experience": [
     {
-      "title": "Frontend Developer",
+      "title": "Senior Frontend Developer",
+      "company": "Arena Group",
+      "location": "Part-Time · Tehran, Iran",
+      "period": "10/2026 - Present",
+      "description": "Arena is a gaming-focused network optimization platform designed to reduce latency and improve the online gaming experience through intelligent traffic routing.",
+      "achievements": [
+        "Built and maintained the Windows desktop application from the ground up using Electron and React, integrating desktop capabilities with a modern frontend architecture.",
+        "Developed the platform’s Next.js dashboard and admin panel, providing interfaces for managing users, configurations, role management and the platform’s operational ecosystem.",
+        "Engineered a highly dynamic, configuration-driven page builder for the admin panel, enabling reusable components and reducing duplicated implementation across the platform.",
+        "Implemented and managed the desktop-level traffic routing system using sing-box and WireGuard, enabling optimized network routing for users and gaming traffic." ]
+    },
+    {
+      "title": "Senior Frontend Developer / Frontend Team Lead",
+      "company": "Karamad Financial Group",
+      "location": "On-Site · Tehran, Iran",
+      "period": "10/2025 - Present",
+      "description": "Karamad Financial Group is a financial services company that provides a range of financial products and services to its customers.",
+      "achievements": [
+        "Took ownership of maintaining and modernizing existing products built with Angular, React, HTML, and CSS, ensuring stability and supporting the transition to a new development team.",
+        "Built Karvest.com from scratch to production as a scalable Next.js monorepo, using TypeScript, PWA, Mantine UI, Tailwind CSS, and React Query, covering the complete frontend development lifecycle.",
+        "Engineered a dynamic, backend-driven development system that synchronizes forms, DTOs, validation rules, and API integrations through backend-generated packages, reducing duplication and keeping frontend and backend contracts aligned.",
+        "Designed and developed a new web-based game application using Next.js, NestJS, Prisma, and SQL Server, expanding into backend architecture and full-stack development."
+      ]
+    },
+   
+    {
+      "title": "SeniorFrontend Developer",
       "company": "Zohal",
       "location": "On-Site · Tehran, Iran",
-      "period": "04/2023 - Present",
+      "period": "04/2023 - 10/2025",
       "description": "Zohal.io is a streamlined Web Service API provider offering developers and businesses ready-to-integrate APIs for rapid product development",
       "achievements": [
         "Launched Zohal.io from scratch, architecting and developing a scalable Next.js monorepo with B2B (API token management) and B2C (no-code) platforms, including a landing page, user dashboard (dashboard.zohal.io), and admin backoffice.",
